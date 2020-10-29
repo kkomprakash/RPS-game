@@ -18,10 +18,13 @@ firebase.initializeApp(config);
 // TIP: https://firebase.google.com/docs/database/web/start
 // Write your code here ...
 
+var database = firebase.database();
+
 // TODO #2
 // Use `ref()` method of above `database` object refer to a child named "players" in the DB, 
 // and assign it to a variable named `player_ref`
 // Write your code here ...
+var player_ref = database.ref();
 
 var in_game = false;
 var my_name = "";
@@ -39,6 +42,7 @@ var my_child = player_ref.push()
 // Use getKey() method to get the auto-generated key of the child `my_child`, 
 // and assign it to a variable named `my_key` 
 // Write your code here ...
+var my_key = my_child.getKey();
 
 var wait_time;
 var flashInterval = null;
@@ -131,6 +135,7 @@ function enemyOfflineHandle(){
             // Use remove() method to remove the child `"players/"+my_enemy_key` 
             // ** Remember before calling remove(), you need a ref object database.ref(`path_to_the_child`).remove()
             // Write your code here ...
+            database.ref("players/"+my_enemy_key).remove();
 
             $("#player2_name").text(enemy + " has left the game!");
             $("#player2_choice").empty();
@@ -236,6 +241,7 @@ function savePlayer1Info(){
     // Use update() method save player info `player1_info` to the child `"players/"+my_key`
     // ** Remember before calling update(), you need a ref object, like `database.ref(`path_to_the_child`).update(arg)
     // Write your code here ...
+    database.ref("players/"+my_key).update(player1_info);
 }
 
 // handle player1 offline event
@@ -284,6 +290,7 @@ $("document").ready(function(){
                         // Call on() method with argument `"value", handle_choice_func` to listen on the change of `value` of the child `"players/"+my_key+"/choice"`
                         // ** Remember before calling on("value", handle_choice_func), you need a ref object
                         // Write your code here ...
+                        database.ref(players/"+my_key+"/choice).on("value", handle_choice_func);
 
                         // handle player1 offline event
                         handlePlayer1Offline();
